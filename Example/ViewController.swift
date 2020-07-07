@@ -26,7 +26,7 @@
 import UIKit
 
 class ViewController: UITableViewController {
-    
+    private var toastForever: UIView?
     fileprivate var showingActivity = false
     
     fileprivate struct ReuseIdentifiers {
@@ -166,18 +166,21 @@ extension ViewController {
         case 0:
             // Make Toast
              self.navigationController?.view.makeToast("This is a piece of toast")
+            
+//            toastForever = try? view.toastViewForMessage("This is a piece of toast", title: nil, image: nil, style: ToastManager.shared.style)
+//            self.navigationController?.view.showToast(toastForever!, duration: .forever, position: .bottom, completion: nil)
         case 1:
             // Make toast with a duration and position
-            self.navigationController?.view.makeToast("This is a piece of toast on top for 3 seconds", duration: 3.0, position: .top)
+            self.navigationController?.view.makeToast("This is a piece of toast on top for 3 seconds", duration: .seconds(seconds: 3.0), position: .bottom)
         case 2:
             // Make toast with a title
-            self.navigationController?.view.makeToast("This is a piece of toast with a title", duration: 2.0, position: .top, title: "Toast Title", image: nil)
+            self.navigationController?.view.makeToast("This is a piece of toast with a title", duration: .seconds(seconds: 2.0), position: .top, title: "Toast Title", image: nil)
         case 3:
             // Make toast with an image
-            self.navigationController?.view.makeToast("This is a piece of toast with an image", duration: 2.0, position: .center, title: nil, image: UIImage(named: "toast.png"))
+            self.navigationController?.view.makeToast("This is a piece of toast with an image", duration: .seconds(seconds: 2.0), position: .center, title: nil, image: UIImage(named: "toast.png"))
         case 4:
             // Make toast with an image, title, and completion closure
-            self.navigationController?.view.makeToast("This is a piece of toast with a title, image, and completion closure", duration: 2.0, position: .bottom, title: "Toast Title", image: UIImage(named: "toast.png")) { didTap in
+            self.navigationController?.view.makeToast("This is a piece of toast with a title, image, and completion closure", duration: .seconds(seconds: 2.0), position: .bottom, title: "Toast Title", image: UIImage(named: "toast.png")) { didTap in
                 if didTap {
                     print("completion from tap")
                 } else {
@@ -191,17 +194,17 @@ extension ViewController {
             style.messageColor = UIColor.red
             style.messageAlignment = .center
             style.backgroundColor = UIColor.yellow
-            self.navigationController?.view.makeToast("This is a piece of toast with a custom style", duration: 3.0, position: .bottom, style: style)
+            self.navigationController?.view.makeToast("This is a piece of toast with a custom style", duration: .seconds(seconds: 2.0), position: .bottom, style: style)
         case 6:
             // Show a custom view as toast
             let customView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 80.0, height: 400.0))
             customView.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin, .flexibleTopMargin, .flexibleBottomMargin]
             customView.backgroundColor = .lightBlue
-            self.navigationController?.view.showToast(customView, duration: 2.0, position: .center)
+            self.navigationController?.view.showToast(customView, duration: .seconds(seconds: 2.0), position: .center)
         case 7:
             // Show an image view as toast, on center at point (110,110)
             let toastView = UIImageView(image: UIImage(named: "toast.png"))
-            self.navigationController?.view.showToast(toastView, duration: 2.0, point: CGPoint(x: 110.0, y: 110.0))
+            self.navigationController?.view.showToast(toastView, duration: .seconds(seconds: 2.0), point: CGPoint(x: 110.0, y: 110.0))
         case 8:
             // Make toast activity
             if !showingActivity {
